@@ -13,10 +13,15 @@ namespace ConsoleApp1
             this.First = first;
             this.Second = second;
         }
+        public Pair(Pair<T, U> arg)
+        {
+            this.First = arg.First;
+            this.Second = arg.Second;
+        }
 
         public T First { get; set; }
         public U Second { get; set; }
-    };
+    }
     internal class Program
     {
         static int counter = 0;
@@ -28,7 +33,8 @@ namespace ConsoleApp1
             var startPoint = new Pair<double, double>(0, 0);
             var endPoint = GradDown(startPoint);
 
-            Console.WriteLine($"Для функции 3*(x1 - 3)^2 + 3*(x3 - 3)^2 + 3 был найден минимум: ({Math.Round(endPoint.First, 4)},{Math.Round(endPoint.Second, 4)})" +
+            Console.WriteLine($"Для функции 3*(x1 - 3)^2 + 3*(x3 - 3)^2 + 3 был найден минимум: " +
+                $"({Math.Round(endPoint.First, 4)},{Math.Round(endPoint.Second, 4)})" +
                 $"\n(оптимальная точка без округления = ({endPoint.First},{endPoint.Second}) )" +
                 $"\nПри начальной точке = ({startPoint.First},{startPoint.Second})" +
                 $"\nЧисло выполненных итераций = {counter}" +
@@ -47,7 +53,7 @@ namespace ConsoleApp1
         }
         static Pair<double, double> GradDown(Pair<double, double> x)
         {
-            Pair<double, double> current = x;
+            Pair<double, double> current = new(x);
             Pair<double, double> last;
             Pair<double, double> grad;
 
